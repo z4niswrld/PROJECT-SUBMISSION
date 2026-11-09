@@ -1,24 +1,724 @@
-# Compiled class file
-*.class
+public class Startform
 
-# Log file
-*.log
+{
+public Startform()
+{
+InitializationComponent()
+}
+private void btnStart_Click(object sender, EventArgs e)
+{
+string operatorName = txt.Name.Text.Trim();
+// check if name empty
+if (operatorName == "")
+{
+MessageBox.Show("enter your name.");
+return;
+}
+// check if name contains letters and spaces only
+for
+(int i = 0;i <operatotName.Length; i++)
+operatorName[i] != '')
+{
+MessageBox.Show("Name must contain letters and spaces only.");
+return;
+}
+}
 
-# BlueJ files
-*.ctxt
+//Display welcome message
+MessageBox.Show("Welcome to RapidAid," + operatorname + "!");
 
-# Mobile Tools for Java (J2ME)
-.mtj.tmp/
+//open MainForm
+MainForm main = new MainForm(operatorName);
+main.Show();
 
-# Package Files #
-*.jar
-*.war
-*.nar
-*.ear
-*.zip
-*.tar.gz
-*.rar
+//Hide StartForm
+this.Hide();
+}
+}
 
-# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
-hs_err_pid*
-replay_pid*
+
+public partial class MainForm : Form
+{
+
+private string operatorname;
+
+public MainForm(string operatorName)
+{
+InitializeComponent();
+
+lblOperator.Text = "Welcome, " + operatorName;
+}
+}
+
+public MainForm(string operatorName)
+{
+InitializeComponent();
+
+lblOperator.Text = "Welcome, " + operatorName;
+
+cmbIncidentType.Items.Add("Fire");
+
+cmbIncidentType.Items.Add("Medical");
+
+
+cmbSeverityType.Items.Add("1 - minor");
+
+cmbSeverityType.Items.Add("2 - moderate");
+
+cmbSeverityType.Items.Add("3 - serious");
+
+cmbSeverityType.Items.Add("4 - severe");
+
+cmbSeverityType.Items.Add("5 - critical");
+
+}
+
+public interface IEmergencyIncident
+{
+//Incident information
+string IncidentID {get;set;}
+}
+string Location {get;set;
+}
+string EmergencyType {get;set;
+}
+int PeopleAffected {get;set;
+}
+int Severity {get;set;
+}
+int ResponseTime {get; set;
+}
+int AssignedUnits {get;set;
+}
+
+//Required resources
+int RequiredUnits {get;}
+
+//Incident analysis results
+double PriorityScore {get;
+}
+string ResponseLevel {get;
+}
+string ResourceStatus {get;
+}
+string AdditionalUnitsRequired {get;
+}
+
+//Methods
+void CalculatePriorityScore();
+void DetermineResponseLevel();
+void CheckResources();
+
+void UpdateAssignedUnits(int newUnits);
+}
+
+using System
+
+public class MedicalIncident : IEmergencyIncident
+{
+//PRIVATE FIELDS
+private string incicdentID;
+private string location;
+private int peopleAffected;
+private int severity;
+private int responseTime;
+private int assignedUnits;
+
+private double priorityScore;
+private string responseLevel;
+private string resourceStatus;
+private int additionalUnitRequired;
+
+//PUBLIC PROPERTIES
+public string IncidentID
+{
+get {return incidentID;}
+set {incidentID = value}
+}
+
+public string Location
+{
+get {return location;}
+set {location value;}
+}
+
+public string EmergencyType
+{
+get {return "Medical";}
+}
+
+public int PepleAffected
+{
+get {return peopleAffected;}
+set {peopleAffected = value;}
+}
+
+public int Severity
+{
+get {return severity;}
+set {severity = value;}
+
+}
+
+public int ResponseTime
+{
+get {return responseTime;}
+set {responseTime = value;}
+
+}
+
+public int AssignedUnits
+{
+get {return assignedUnits;}
+set {assignUnits = value;}
+
+}
+public int RequiredUnits
+{
+get { return 2;}
+
+}
+public double priorityScore
+{
+get {return priorityScore;}
+
+}
+public string ResponseLevel
+{
+get {return responseLevel;}
+
+}
+public string ResourceStats
+{
+get {return resourceStatus;}
+
+}
+public int AdditionUnitsRequired
+{
+get {return additionalUnitsRequired;}
+
+}
+
+//CONSTRUCTOR
+
+public MedicalIncident(string id, string location,
+int people, int sev, int time, int units)
+{
+incidentID = id;
+location = location;
+peopleAffected = people;
+severity = sev;
+responseTime = time;
+assignedUnits = units;
+
+CalculatePriorityScore();
+DetermineResponseLevel();
+CheckResources();
+
+}
+//CALCULATE PRIORITY SCORE
+public void CalculatePriorityScore()
+{
+priorityScore = (severity * 20)
+               +(peopleAffected * 2)
+               -(responseTime/ 5.0);
+
+if (priorScore < 0)
+{
+priorityScorw = 0;
+}
+}
+
+//DETERMINE RESPONSE LEVEL
+public void DetermineResponseLevel1()
+{
+if (priorityScore >= 70)
+{
+responseLevel1 = "Critical";
+}
+else if (priorityScore >= 40)
+{
+responseLevel  = "Urgent";
+}
+else
+{
+responseLevel "Routine";
+}
+}
+
+//CHECK RESOURCES
+public void CheckResources()
+{
+if (assignedUnits >= RequiredUnits)
+{
+resourceStatus "Sufficient Resources";
+additionalUnitsRequired 0;
+}
+else
+{
+resourceStatus = "Insufficient Resources";
+additionalUnitsRequired = RequiredUnits - assignedUnits;
+}
+}
+//UPDATE ASSIGNED UNITS
+public void UpdateAssignedUnits(int newUnits)
+{
+if (newUnits >= 0)
+{
+assignedUnits = newUnits;
+CheckResources();
+}
+}
+}
+using System;
+public class FireIncident : IEmeergencyIncident
+{
+//PRIVATE FIELDS
+private string incidentID;
+private string location;
+private int peopleAfected;
+private int severity;
+private int responseTime;
+private int assignedUnits;
+
+private double priorityScore;
+private string responseLevel;
+private string resourceStatus;
+private int additionalUnitsRequired;
+
+//PUBLIC PROPERTIES
+public string IncidentID
+{
+get {return incidentID;}
+set {incidentID = value;}
+
+}
+
+public string Location
+{
+get {return location;}
+set {location = value;}
+
+}
+public string Emergencytype
+{
+get {return "Fire";}
+
+}
+public int PeopleAffected
+{
+get {return peopleAffected;}
+set {peopleAffected = value;}
+
+}
+public int Severity
+{
+get { return Severity;}
+set {Severity = value;}
+
+}
+public int ResponseTime
+{
+get { return responseTime;}
+set {responseTime = value;}
+
+}
+public int AssignedUnits
+{
+get { return assignedUnits;}
+set {assignedUnits = value;}
+
+}
+public int RequiredUnits
+{
+get return 4;}
+
+}
+public double PriorityScore
+{
+get { return PriorityScore;}
+
+}
+public string ResponseLevel
+{
+get { return responseLevel;}
+
+}
+
+public ResourceStatus
+{
+get { return resourceStatus;}
+
+}
+
+public double AdditionalUnitsRequired
+{
+get { return additionalUnitsRequired;}
+
+}
+//CONTSTRUCTOR
+public FireIncident(string id, string location, int people,
+int sev, int time, int units)
+{
+intcidentID = ID;
+location = lo;
+peopleAffected = people;
+severity = sev;
+responseTime = time;
+assignedUNits = units;
+
+CalculatePriorityScore();
+DetermineResponseLevel();
+CheckResources();
+}
+
+//CALCULATE PRIORITY SCORE
+public void CalculatePriorityScore()
+{
+priorityScore = (severity * 20)
+               +(peopleAffected * 2)
+               -(responseTime/ 5.0);
+
+if (priorScore < 0)
+{
+priorityScorw = 0;
+}
+}
+
+//DETERMINE RESPONSE LEVEL
+public void DetermineResponseLevel1()
+{
+if (priorityScore >= 70)
+{
+responseLevel1 = "Critical";
+}
+else if (priorityScore >= 40)
+{
+responseLevel  = "Urgent";
+}
+else
+{
+responseLevel "Routine";
+}
+}
+
+//CHECK RESOURCES
+public void CheckResources()
+{
+if (assignedUnits >= RequiredUnits)
+{
+resourceStatus "Sufficient Resources";
+additionalUnitsRequired 0;
+}
+else
+{
+resourceStatus = "Insufficient Resources";
+additionalUnitsRequired = RequiredUnits - assignedUnits;
+}
+}
+//UPDATE ASSIGNED UNITS
+public void UpdateAssignedUnits(int newUnits)
+{
+if (newUnits >= 0)
+{
+assignedUnits = newUnits;
+CheckResources();
+}
+}
+}
+
+using System
+using System.Collections;
+
+public class IncidentManager
+{
+//ARRAYLIST TO STORE INCIDENTS
+private ArrayList incidents;
+
+//CONSTRUCTOR
+public IncidentManager()
+{
+incidents = new ArrayList();
+}
+
+ADD NEW INCIDENT
+public bool AddIncidnet(IEmergencyIncident incident)
+{
+if (incident == null)
+{
+return false;
+}
+
+//CHECK IF INCIDENT ID ALREADY EXISTS
+for (int i = 0; i < incidents.Count; i++)
+{
+IEmergencyIncident existing =
+(IEmergencyIncident)incident[i];
+
+if (existing.IncidentID == incident.IncidentID)
+{
+return false;
+}
+}
+incidents.Add(incident);
+return true;
+}
+
+//FIND AN INCIDENT USING ITS ID
+public IEmergencyIncident FindIncident(string id)
+{
+IEmergencyIncident incident =
+(IEmergencyIncident)incidents[i];
+
+if (incident.IncidentID == id)
+{
+return incident;
+}
+}
+return null;
+}
+//UPDATE ASSIGNED UNITS
+public bool UpdateIncidentUnits(string id, int newUnits)
+{
+if (newUnits < 0)
+{
+return false;
+}
+IEmeeergencyIncident incident = FindIncident(id);
+if (incident != null)
+{
+incident.UpdateAssignedUnits(newUnits);
+return true;
+}
+return false;
+}
+//GET TOTAL NUMBER OF INCIDENTS
+public int GetTotalIncidents()
+{
+return incidents.Count;
+}
+
+//GET AN INCIDENT USING POSTION
+public IEmergencyIncident GetIncidentAt(int index)
+(
+if (index >= 0 && index < incidents.Count)
+{
+return(IEmergencyIncident)incidents[index];
+}
+return null;
+}
+
+//CALCULATE AVERAGE PRIORITY
+public double GetAveragePriority()
+{
+if (incidents.Count == 0)
+{
+return 0;
+}
+
+double total = 0;
+for (int i = 0; i < incidents.count; i++)
+{
+(IEmergencyIncident)incidents[i];
+
+total += incident.PriorityScore;
+}
+
+return total / incidents.Count;
+}
+
+//GET HIGHEST PRIORITY
+public double GetHighestPriority()
+{
+if (incidents.Count == 0)
+{
+return 0;
+}
+
+double highest = 0;
+
+for (int i = 0; i < incidents.Count; i++)
+{
+IEmergencyIncident)incidents[i];
+
+if (incident.PriorityScore > highest)
+{
+highest = incident.PriorityScore;
+}
+}
+return highest;
+}
+
+//GET LOWEST PRIORITY
+public double GetLowestPriority()
+{
+if (incidents.Count == 0)
+{
+return 0;
+}
+
+IEmergencyIncident first =
+(IEmergencyIncident)incidents[0];
+
+double lowest = first.PriorityScore;
+
+for(int i = 1; i < incident.Count; i++)
+{
+IEmergencyIncident incident =
+(IEmergencyIncident)incidents[i];
+
+if(incident.PriorityScore < lowest)
+{
+lowest = incidentPriorityScore;
+}
+}
+return lowest;
+}
+
+//COUNT RESPONSE LEVELS
+public int CountResponseLevel(string level)
+{
+int count = 0;
+
+for (int i = 0; i < incidents.Count; i++)
+{
+IEmergencyIncident incident =
+(IEmergencyIncident)incidents[i];
+
+if (incident.ResponseLevel == level)
+{
+count++
+}
+}
+return count;
+}
+
+//COUNT INCICDENT TYPES
+public int CountIncidentTypes(string type)
+{
+int count 0;
+
+for (int i 0; i < incidents.Count; i++)
+{
+IEmergencyIncident =
+(IEmergencyIncident)incidents[i];
+
+if (incident.EmergencyType == type)
+{
+count++;
+}
+}
+
+return count;
+}
+}
+
+private void btnRegister_Click(object sender, EventArgs e)
+{
+// 1. Get information from the form
+string id = txtIncidentID.Text.Trim();
+string location = txtLocation.Text.Trim();
+
+// 2. Validate the incident ID
+if (id == "" || !id.StartsWith("INC") || id.Length <= 3)
+{
+MessageBox.Show("ID must start with INC, followed by numbers. Example: INC001");
+return;
+}
+
+string numberPart = id.Substring(3);
+
+for (int i = 0; i < numberPart.Length; i++)
+{
+if (!char.IsDigit(numberPart[i]))
+{
+MessageBox.Show("The incident ID must contain numbers after INC.");
+return;
+}
+}
+
+// 3. Check that the ID is unique
+if (manager.FindIncident(id) != null)
+{
+MessageBox.Show("This incident ID already exists.");
+return;
+}
+
+ // 4. Validate the location
+ if (location == "")
+ {
+ MessageBox.Show("Please enter the incident location.");
+ return;
+  }
+
+    // 5. Validate the emergency type
+    if (cmbIncidentType.SelectedIndex == -1)
+    {
+        MessageBox.Show("Please select an emergency type.");
+        return;
+    }
+
+    // 6. Validate people affected
+    int people;
+
+    if (!int.TryParse(txtPeopleAffected.Text, out people) || people <= 0)
+    {
+        MessageBox.Show("People affected must be a number greater than zero.");
+        return;
+    }
+
+    // 7. Validate severity
+    if (cmbSeverity.SelectedIndex == -1)
+    {
+        MessageBox.Show("Please select a severity level.");
+        return;
+    }
+
+    int severity = cmbSeverity.SelectedIndex + 1;
+
+    // 8. Validate response time
+    int responseTime;
+
+    if (!int.TryParse(txtResponseTime.Text, out responseTime) || responseTime <= 0)
+    {
+        MessageBox.Show("Response time must be greater than zero.");
+        return;
+}
+
+// 9. Validate assigned units
+int assignedUnits;
+
+if (!int.TryParse(txtAssignedUnits.Text, out assignedUnits) || assignedUnits < 0)
+{
+MessageBox.Show("Assigned units cannot be negative.");
+return;
+}
+
+// 10. Create the correct incident object
+IEmergencyIncident incident;
+
+if (cmbIncidentType.SelectedItem.ToString() == "Medical")
+{
+incident = new MedicalIncident(
+id, location, people, severity, responseTime, assignedUnits);
+}
+else
+{
+incident = new FireIncident(
+id, location, people, severity, responseTime, assignedUnits);
+}
+
+// 11. Add the incident to the manager
+if (manager.AddIncident(incident))
+{
+MessageBox.Show("Incident registered successfully!");
+
+// Display the calculated results
+lblPriorityScore.Text = incident.PriorityScore.ToString("0.00");
+lblResponseLevel.Text = incident.ResponseLevel;
+lblResourceStatus.Text = incident.ResourceStatus;
+lblAdditionalUnits.Text =
+incident.AdditionalUnitsRequired.ToString();
+RefreshIncidentList();
+    }
+}
